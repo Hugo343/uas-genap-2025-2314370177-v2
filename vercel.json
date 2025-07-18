@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/index.php",
+      "use": "vercel-php@0.6.0"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(css|js|images|fonts|favicon.ico|build)/(.*)",
+      "dest": "/public/$1/$2"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.php"
+    }
+  ],
+  "env": {
+    "APP_NAME": "Laravel",
+    "APP_ENV": "production",
+    "APP_KEY": "base64:OA+ySI6D0WfDzDy2g2C1zQt9BW3mRGf3DgPR/QPc8Ss=",
+    "APP_DEBUG": "false",
+    "APP_URL": "https://nama-project-kamu.vercel.app",
+
+    "LOG_CHANNEL": "stderr",
+    "LOG_LEVEL": "debug",
+
+    "DB_CONNECTION": "pgsql",
+    "DB_HOST": "aws-0-ap-southeast-1.pooler.supabase.com",
+    "DB_PORT": "6543",
+    "DB_DATABASE": "postgres",
+    "DB_USERNAME": "postgres.sducohsyvrfuduugegjf",
+    "DB_PASSWORD": "Hugo26032003**",
+
+    "SESSION_DRIVER": "file",
+    "SESSION_LIFETIME": "120",
+    "CACHE_DRIVER": "file"
+  }
+}
