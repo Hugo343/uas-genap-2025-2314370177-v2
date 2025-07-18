@@ -19,7 +19,7 @@
   "env": {
     "APP_NAME": "Laravel",
     "APP_ENV": "production",
-    "APP_KEY": "base64:OA+ySI6D0WfDzDy2g2C1zQt9BW3mRGf3DgPR/QPc8Ss=",
+    "APP_KEY": "base64:OYMQSqRMoWAECx2pvbdRsZzJy0qEyTKz1xEAAE7jUCc=",
     "APP_DEBUG": "true",
     "APP_URL": "https://uas-genap-2025-2314370177-v2.vercel.app",
 
