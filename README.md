@@ -51,7 +51,7 @@ Proyek ini dirancang agar dapat dideploy ke **Vercel** menggunakan pendekatan se
 
 ```bash
 # Clone repository
-git clone https://github.com/username/repo-baru.git
+git clone https://github.com/Hugo343/uas-genap-2025-2314370177-v2
 cd repo-baru
 
 # Install dependencies
