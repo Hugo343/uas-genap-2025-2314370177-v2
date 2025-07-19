@@ -3,9 +3,19 @@
   "builds": [
     {
       "src": "public/index.php",
-      "use": "vercel-php@0.6.0"
+      "use": "vercel-php@0.6.0",
+      "config": {
+      "includeFiles": [
+        "bootstrap/cache/**",
+        "storage/**",
+        "app/**",
+        "routes/**",
+        "resources/**",
+        "config/**"
+      ]
     }
-  ],
+}
+],
   "routes": [
     {
       "src": "/(css|js|images|fonts|favicon.ico|build)/(.*)",
