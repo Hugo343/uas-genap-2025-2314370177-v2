@@ -2,113 +2,153 @@
 
 @section('content')
 <style>
-    .auth-container {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
+    .auth-page {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        min-height: calc(100vh - 80px);
+        padding: 40px 0;
         position: relative;
-        overflow: hidden;
     }
     
-    .auth-container::before {
+    .auth-page::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        opacity: 0.3;
-        animation: float 20s ease-in-out infinite;
+        background-image: 
+            radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+        pointer-events: none;
     }
     
-    @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(1deg); }
+    .auth-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        min-height: 600px;
     }
     
-    .auth-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        width: 100%;
-        max-width: 480px;
-        padding: 0;
-        overflow: hidden;
-        transform: translateY(0);
+    .auth-hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 0;
+    }
+    
+    .auth-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 20px;
+        line-height: 1.1;
+        background: linear-gradient(135deg, #1e293b 0%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .auth-hero p {
+        font-size: 1.25rem;
+        color: #64748b;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+    
+    .auth-benefits {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 40px;
+    }
+    
+    .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid #e2e8f0;
         transition: all 0.3s ease;
-        animation: slideUp 0.6s ease-out;
     }
     
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .benefit-item:hover {
+        transform: translateX(8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
     
-    .auth-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 35px 60px rgba(0, 0, 0, 0.25);
-    }
-    
-    .auth-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .benefit-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: white;
-        padding: 30px;
-        text-align: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+    
+    .benefit-content h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 4px;
+    }
+    
+    .benefit-content p {
+        font-size: 14px;
+        color: #64748b;
+        margin: 0;
+        line-height: 1.4;
+    }
+    
+    .auth-form-container {
+        background: white;
+        border-radius: 24px;
+        padding: 50px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
         position: relative;
         overflow: hidden;
     }
     
-    .auth-header::before {
+    .auth-form-container::before {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: shimmer 3s ease-in-out infinite;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b);
     }
     
-    @keyframes shimmer {
-        0%, 100% { transform: rotate(0deg); }
-        50% { transform: rotate(180deg); }
+    .auth-form-header {
+        text-align: center;
+        margin-bottom: 40px;
     }
     
-    .auth-header h2 {
-        margin: 0;
-        font-size: 28px;
+    .auth-form-header h2 {
+        font-size: 2rem;
         font-weight: 700;
-        position: relative;
-        z-index: 1;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        color: #1e293b;
+        margin-bottom: 8px;
     }
     
-    .auth-header .subtitle {
-        margin-top: 8px;
-        opacity: 0.9;
-        font-size: 14px;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .auth-body {
-        padding: 40px;
+    .auth-form-header p {
+        color: #64748b;
+        font-size: 16px;
     }
     
     .form-group {
-        margin-bottom: 25px;
+        margin-bottom: 24px;
         position: relative;
     }
     
@@ -123,21 +163,21 @@
     
     .form-input {
         width: 100%;
-        padding: 15px 20px;
-        border: 2px solid #e5e7eb;
+        padding: 16px 20px;
+        border: 2px solid #e2e8f0;
         border-radius: 12px;
         font-size: 16px;
         transition: all 0.3s ease;
-        background: #f9fafb;
+        background: #f8fafc;
         box-sizing: border-box;
-        position: relative;
+        font-family: inherit;
     }
     
     .form-input:focus {
         outline: none;
-        border-color: #667eea;
+        border-color: #8b5cf6;
         background: white;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         transform: translateY(-1px);
     }
     
@@ -155,26 +195,37 @@
         color: #ef4444;
         font-size: 13px;
         margin-top: 6px;
-        display: block;
-        animation: shake 0.5s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        animation: slideDown 0.3s ease-out;
     }
     
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     .password-strength {
-        margin-top: 8px;
-        font-size: 12px;
+        margin-top: 12px;
+        padding: 12px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        display: none;
     }
     
     .strength-bar {
-        height: 4px;
-        background: #e5e7eb;
-        border-radius: 2px;
-        margin: 5px 0;
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 3px;
+        margin: 8px 0;
         overflow: hidden;
     }
     
@@ -182,18 +233,48 @@
         height: 100%;
         width: 0%;
         transition: all 0.3s ease;
-        border-radius: 2px;
+        border-radius: 3px;
     }
     
-    .strength-weak { background: #ef4444; width: 25%; }
-    .strength-fair { background: #f59e0b; width: 50%; }
-    .strength-good { background: #10b981; width: 75%; }
-    .strength-strong { background: #059669; width: 100%; }
+    .strength-weak { background: linear-gradient(90deg, #ef4444, #f87171); width: 25%; }
+    .strength-fair { background: linear-gradient(90deg, #f59e0b, #fbbf24); width: 50%; }
+    .strength-good { background: linear-gradient(90deg, #10b981, #34d399); width: 75%; }
+    .strength-strong { background: linear-gradient(90deg, #059669, #10b981); width: 100%; }
+    
+    .strength-text {
+        font-size: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .password-match {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .password-match.show {
+        opacity: 1;
+    }
+    
+    .password-match.match {
+        color: #10b981;
+    }
+    
+    .password-match.no-match {
+        color: #ef4444;
+    }
     
     .btn-primary {
         width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 16px 24px;
+        background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
         border: none;
         border-radius: 12px;
         color: white;
@@ -203,7 +284,8 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        font-family: inherit;
     }
     
     .btn-primary::before {
@@ -217,13 +299,13 @@
         transition: left 0.5s;
     }
     
-    .btn-primary:hover::before {
-        left: 100%;
-    }
-    
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+    }
+    
+    .btn-primary:hover::before {
+        left: 100%;
     }
     
     .btn-primary:active {
@@ -233,6 +315,10 @@
     .btn-primary.loading {
         pointer-events: none;
         opacity: 0.8;
+    }
+    
+    .btn-primary.loading .btn-text {
+        opacity: 0;
     }
     
     .btn-primary.loading::after {
@@ -255,80 +341,138 @@
         100% { transform: rotate(360deg); }
     }
     
-    .login-link {
+    .auth-links {
         text-align: center;
-        margin-top: 30px;
+        margin-top: 24px;
+    }
+    
+    .login-link {
         padding-top: 20px;
-        border-top: 1px solid #e5e7eb;
-        color: #6b7280;
+        border-top: 1px solid #e2e8f0;
+        color: #64748b;
         font-size: 14px;
     }
     
     .login-link a {
-        color: #667eea;
+        color: #8b5cf6;
         text-decoration: none;
         font-weight: 600;
-        margin-left: 5px;
+        margin-left: 4px;
+        transition: color 0.3s ease;
     }
     
     .login-link a:hover {
+        color: #7c3aed;
         text-decoration: underline;
     }
     
-    .password-match {
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 18px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    .password-match.show {
-        opacity: 1;
-    }
-    
-    .password-match.match {
-        color: #10b981;
-    }
-    
-    .password-match.no-match {
-        color: #ef4444;
+    @media (max-width: 1024px) {
+        .auth-container {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .auth-hero {
+            order: 2;
+        }
+        
+        .auth-form-container {
+            order: 1;
+            padding: 40px 30px;
+        }
+        
+        .auth-hero h1 {
+            font-size: 2.5rem;
+        }
     }
     
     @media (max-width: 768px) {
+        .auth-page {
+            padding: 20px 0;
+        }
+        
         .auth-container {
-            padding: 10px;
+            padding: 0 15px;
+            gap: 30px;
         }
         
-        .auth-card {
-            margin: 10px;
+        .auth-form-container {
+            padding: 30px 20px;
+            border-radius: 16px;
         }
         
-        .auth-body {
-            padding: 30px 25px;
+        .auth-hero h1 {
+            font-size: 2rem;
         }
+        
+        .auth-benefits {
+            gap: 15px;
+        }
+        
+        .benefit-item {
+            padding: 16px;
+        }
+    }
+    
+    .auth-page .container-fluid,
+    .auth-page .container {
+        padding: 0;
+        margin: 0;
+        max-width: none;
     }
 </style>
 
-<div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <h2>{{ __('Create Account') }}</h2>
-            <p class="subtitle">{{ __('Join us today') }}</p>
+<div class="auth-page">
+    <div class="auth-container">
+        <!-- Hero Section -->
+        <div class="auth-hero">
+            <h1>Join Our Store</h1>
+            <p>Create your account and start enjoying exclusive benefits, personalized recommendations, and seamless shopping experience.</p>
+            
+            <div class="auth-benefits">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎁</div>
+                    <div class="benefit-content">
+                        <h3>Exclusive Offers</h3>
+                        <p>Get access to member-only deals and early access to sales</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">📦</div>
+                    <div class="benefit-content">
+                        <h3>Order Tracking</h3>
+                        <p>Track your orders in real-time and manage your purchase history</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💝</div>
+                    <div class="benefit-content">
+                        <h3>Wishlist & Favorites</h3>
+                        <p>Save your favorite items and get notified when they go on sale</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <div class="auth-body">
+        <!-- Form Section -->
+        <div class="auth-form-container">
+            <div class="auth-form-header">
+                <h2>{{ __('Create Account') }}</h2>
+                <p>Fill in your information to get started</p>
+            </div>
+            
             <form method="POST" action="{{ route('register') }}" id="registerForm">
                 @csrf
                 
                 <div class="form-group">
                     <label for="name" class="form-label">{{ __('Full Name') }}</label>
                     <input id="name" type="text" class="form-input @error('name') is-invalid @enderror" 
-                           name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                           name="name" value="{{ old('name') }}" required autocomplete="name" autofocus 
+                           placeholder="Enter your full name">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
+                            <span>⚠️</span>
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -337,9 +481,11 @@
                 <div class="form-group">
                     <label for="email" class="form-label">{{ __('Email Address') }}</label>
                     <input id="email" type="email" class="form-input @error('email') is-invalid @enderror" 
-                           name="email" value="{{ old('email') }}" required autocomplete="email">
+                           name="email" value="{{ old('email') }}" required autocomplete="email" 
+                           placeholder="Enter your email address">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
+                            <span>⚠️</span>
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -348,15 +494,17 @@
                 <div class="form-group">
                     <label for="password" class="form-label">{{ __('Password') }}</label>
                     <input id="password" type="password" class="form-input @error('password') is-invalid @enderror" 
-                           name="password" required autocomplete="new-password">
-                    <div class="password-strength" id="passwordStrength" style="display: none;">
+                           name="password" required autocomplete="new-password" 
+                           placeholder="Create a strong password">
+                    <div class="password-strength" id="passwordStrength">
                         <div class="strength-bar">
                             <div class="strength-fill" id="strengthFill"></div>
                         </div>
-                        <span id="strengthText"></span>
+                        <div class="strength-text" id="strengthText"></div>
                     </div>
                     @error('password')
                         <span class="invalid-feedback" role="alert">
+                            <span>⚠️</span>
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -366,7 +514,8 @@
                     <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
                     <div style="position: relative;">
                         <input id="password-confirm" type="password" class="form-input" 
-                               name="password_confirmation" required autocomplete="new-password">
+                               name="password_confirmation" required autocomplete="new-password" 
+                               placeholder="Confirm your password">
                         <div class="password-match" id="passwordMatch">
                             <span id="matchIcon"></span>
                         </div>
@@ -374,12 +523,14 @@
                 </div>
 
                 <button type="submit" class="btn-primary" id="registerBtn">
-                    <span class="btn-text">{{ __('Create Account') }}</span>
+                    <span class="btn-text">{{ __('Create My Account') }}</span>
                 </button>
                 
-                <div class="login-link">
-                    {{ __('Already have an account?') }}
-                    <a href="{{ route('login') }}">{{ __('Sign in here') }}</a>
+                <div class="auth-links">
+                    <div class="login-link">
+                        {{ __('Already have an account?') }}
+                        <a href="{{ route('login') }}">{{ __('Sign in here') }}</a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -399,19 +550,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordMatch = document.getElementById('passwordMatch');
     const matchIcon = document.getElementById('matchIcon');
     
-    // Add floating label effect
+    // Enhanced input interactions
     inputs.forEach(input => {
         input.addEventListener('focus', function() {
             this.parentElement.classList.add('focused');
+            this.style.transform = 'translateY(-1px)';
         });
         
         input.addEventListener('blur', function() {
             if (this.value === '') {
                 this.parentElement.classList.remove('focused');
             }
+            this.style.transform = 'translateY(0)';
         });
         
-        // Check if input has value on load
+        input.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid')) {
+                this.classList.remove('is-invalid');
+                const feedback = this.parentElement.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+            }
+            
+            if (this.value.length > 0) {
+                this.style.borderColor = '#10b981';
+            } else {
+                this.style.borderColor = '#e2e8f0';
+            }
+        });
+        
         if (input.value !== '') {
             input.parentElement.classList.add('focused');
         }
@@ -430,32 +598,26 @@ document.addEventListener('DOMContentLoaded', function() {
         checkPasswordMatch();
     });
     
-    // Password confirmation checker
     confirmPasswordInput.addEventListener('input', checkPasswordMatch);
     
     function checkPasswordStrength(password) {
         let score = 0;
         let feedback = [];
         
-        // Length check
         if (password.length >= 8) score += 1;
-        else feedback.push('at least 8 characters');
+        else feedback.push('8+ characters');
         
-        // Lowercase check
         if (/[a-z]/.test(password)) score += 1;
-        else feedback.push('lowercase letter');
+        else feedback.push('lowercase');
         
-        // Uppercase check
         if (/[A-Z]/.test(password)) score += 1;
-        else feedback.push('uppercase letter');
+        else feedback.push('uppercase');
         
-        // Number check
         if (/\d/.test(password)) score += 1;
         else feedback.push('number');
         
-        // Special character check
         if (/[^A-Za-z0-9]/.test(password)) score += 1;
-        else feedback.push('special character');
+        else feedback.push('special char');
         
         return { score, feedback };
     }
@@ -463,25 +625,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function updatePasswordStrength(strength) {
         const { score, feedback } = strength;
         
-        // Remove all strength classes
         strengthFill.className = 'strength-fill';
         
         if (score <= 2) {
             strengthFill.classList.add('strength-weak');
-            strengthText.textContent = 'Weak password';
-            strengthText.style.color = '#ef4444';
+            strengthText.innerHTML = '<span style="color: #ef4444;">🔴 Weak</span> - Add: ' + feedback.join(', ');
         } else if (score === 3) {
             strengthFill.classList.add('strength-fair');
-            strengthText.textContent = 'Fair password';
-            strengthText.style.color = '#f59e0b';
+            strengthText.innerHTML = '<span style="color: #f59e0b;">🟡 Fair</span> - Add: ' + feedback.join(', ');
         } else if (score === 4) {
             strengthFill.classList.add('strength-good');
-            strengthText.textContent = 'Good password';
-            strengthText.style.color = '#10b981';
+            strengthText.innerHTML = '<span style="color: #10b981;">🟢 Good</span> - Almost there!';
         } else {
             strengthFill.classList.add('strength-strong');
-            strengthText.textContent = 'Strong password';
-            strengthText.style.color = '#059669';
+            strengthText.innerHTML = '<span style="color: #059669;">✅ Strong</span> - Perfect!';
         }
     }
     
@@ -505,45 +662,60 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Form submission with loading state
+    // Enhanced form submission
     form.addEventListener('submit', function(e) {
         registerBtn.classList.add('loading');
-        registerBtn.querySelector('.btn-text').style.opacity = '0';
-        
-        // Prevent double submission
         registerBtn.disabled = true;
+        
+        form.style.transform = 'scale(0.98)';
+        form.style.opacity = '0.8';
     });
     
-    // Add input validation feedback
-    inputs.forEach(input => {
-        input.addEventListener('input', function() {
-            if (this.classList.contains('is-invalid')) {
-                this.classList.remove('is-invalid');
-                const feedback = this.parentElement.querySelector('.invalid-feedback');
-                if (feedback) {
-                    feedback.style.display = 'none';
-                }
-            }
-        });
-    });
-    
-    // Add smooth scroll to error
+    // Smooth scroll to errors
     const errorElement = document.querySelector('.invalid-feedback');
     if (errorElement) {
-        errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        errorElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center',
+            inline: 'nearest'
+        });
     }
     
-    // Add keyboard navigation
+    // Enhanced keyboard navigation
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+            e.preventDefault();
             const currentIndex = Array.from(inputs).indexOf(e.target);
             if (currentIndex < inputs.length - 1) {
                 inputs[currentIndex + 1].focus();
             } else {
+                registerBtn.focus();
                 registerBtn.click();
             }
         }
     });
+    
+    // Add subtle animations on load
+    const authContainer = document.querySelector('.auth-form-container');
+    const authHero = document.querySelector('.auth-hero');
+    
+    setTimeout(() => {
+        authHero.style.opacity = '1';
+        authHero.style.transform = 'translateY(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        authContainer.style.opacity = '1';
+        authContainer.style.transform = 'translateY(0)';
+    }, 200);
+    
+    authHero.style.opacity = '0';
+    authHero.style.transform = 'translateY(20px)';
+    authHero.style.transition = 'all 0.6s ease-out';
+    
+    authContainer.style.opacity = '0';
+    authContainer.style.transform = 'translateY(20px)';
+    authContainer.style.transition = 'all 0.6s ease-out';
 });
 </script>
 @endsection

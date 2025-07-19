@@ -2,113 +2,145 @@
 
 @section('content')
 <style>
-    .auth-container {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
+    /* Reset dan base styles yang menyatu dengan layout */
+    .auth-page {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        min-height: calc(100vh - 80px); /* Adjust for navbar height */
+        padding: 40px 0;
         position: relative;
-        overflow: hidden;
     }
     
-    .auth-container::before {
+    .auth-page::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        opacity: 0.3;
-        animation: float 20s ease-in-out infinite;
+        background-image: 
+            radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+        pointer-events: none;
     }
     
-    @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(1deg); }
+    .auth-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        min-height: 600px;
     }
     
-    .auth-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        width: 100%;
-        max-width: 450px;
-        padding: 0;
-        overflow: hidden;
-        transform: translateY(0);
+    .auth-hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 0;
+    }
+    
+    .auth-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 20px;
+        line-height: 1.1;
+        background: linear-gradient(135deg, #1e293b 0%, #6366f1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .auth-hero p {
+        font-size: 1.25rem;
+        color: #64748b;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+    
+    .auth-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 40px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid #e2e8f0;
         transition: all 0.3s ease;
-        animation: slideUp 0.6s ease-out;
     }
     
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .feature-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
     
-    .auth-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 35px 60px rgba(0, 0, 0, 0.25);
-    }
-    
-    .auth-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: white;
-        padding: 30px;
-        text-align: center;
+        font-size: 18px;
+    }
+    
+    .feature-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+    }
+    
+    .auth-form-container {
+        background: white;
+        border-radius: 24px;
+        padding: 50px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
         position: relative;
         overflow: hidden;
     }
     
-    .auth-header::before {
+    .auth-form-container::before {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: shimmer 3s ease-in-out infinite;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
     }
     
-    @keyframes shimmer {
-        0%, 100% { transform: rotate(0deg); }
-        50% { transform: rotate(180deg); }
+    .auth-form-header {
+        text-align: center;
+        margin-bottom: 40px;
     }
     
-    .auth-header h2 {
-        margin: 0;
-        font-size: 28px;
+    .auth-form-header h2 {
+        font-size: 2rem;
         font-weight: 700;
-        position: relative;
-        z-index: 1;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        color: #1e293b;
+        margin-bottom: 8px;
     }
     
-    .auth-header .subtitle {
-        margin-top: 8px;
-        opacity: 0.9;
-        font-size: 14px;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .auth-body {
-        padding: 40px;
+    .auth-form-header p {
+        color: #64748b;
+        font-size: 16px;
     }
     
     .form-group {
-        margin-bottom: 25px;
+        margin-bottom: 24px;
         position: relative;
     }
     
@@ -123,20 +155,21 @@
     
     .form-input {
         width: 100%;
-        padding: 15px 20px;
-        border: 2px solid #e5e7eb;
+        padding: 16px 20px;
+        border: 2px solid #e2e8f0;
         border-radius: 12px;
         font-size: 16px;
         transition: all 0.3s ease;
-        background: #f9fafb;
+        background: #f8fafc;
         box-sizing: border-box;
+        font-family: inherit;
     }
     
     .form-input:focus {
         outline: none;
-        border-color: #667eea;
+        border-color: #6366f1;
         background: white;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         transform: translateY(-1px);
     }
     
@@ -154,20 +187,28 @@
         color: #ef4444;
         font-size: 13px;
         margin-top: 6px;
-        display: block;
-        animation: shake 0.5s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        animation: slideDown 0.3s ease-out;
     }
     
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     .checkbox-container {
         display: flex;
         align-items: center;
-        margin: 20px 0;
+        margin: 24px 0;
+        gap: 12px;
     }
     
     .custom-checkbox {
@@ -175,7 +216,7 @@
         display: inline-block;
         width: 20px;
         height: 20px;
-        margin-right: 12px;
+        cursor: pointer;
     }
     
     .custom-checkbox input {
@@ -184,6 +225,7 @@
         height: 100%;
         position: absolute;
         cursor: pointer;
+        margin: 0;
     }
     
     .checkmark {
@@ -192,51 +234,47 @@
         left: 0;
         height: 20px;
         width: 20px;
-        background: #f3f4f6;
-        border: 2px solid #d1d5db;
-        border-radius: 4px;
+        background: #f1f5f9;
+        border: 2px solid #cbd5e1;
+        border-radius: 6px;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .custom-checkbox input:checked ~ .checkmark {
-        background: #667eea;
-        border-color: #667eea;
+        background: #6366f1;
+        border-color: #6366f1;
     }
     
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-        left: 6px;
-        top: 2px;
-        width: 6px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
+    .checkmark::after {
+        content: "✓";
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.2s ease;
     }
     
-    .custom-checkbox input:checked ~ .checkmark:after {
-        display: block;
-        animation: checkmark 0.3s ease-in-out;
-    }
-    
-    @keyframes checkmark {
-        0% { transform: rotate(45deg) scale(0); }
-        100% { transform: rotate(45deg) scale(1); }
+    .custom-checkbox input:checked ~ .checkmark::after {
+        opacity: 1;
+        transform: scale(1);
     }
     
     .checkbox-label {
         font-size: 14px;
-        color: #6b7280;
+        color: #64748b;
         cursor: pointer;
         user-select: none;
+        line-height: 1.4;
     }
     
     .btn-primary {
         width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 16px 24px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         border: none;
         border-radius: 12px;
         color: white;
@@ -246,7 +284,8 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        font-family: inherit;
     }
     
     .btn-primary::before {
@@ -260,13 +299,13 @@
         transition: left 0.5s;
     }
     
-    .btn-primary:hover::before {
-        left: 100%;
-    }
-    
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-primary:hover::before {
+        left: 100%;
     }
     
     .btn-primary:active {
@@ -276,6 +315,10 @@
     .btn-primary.loading {
         pointer-events: none;
         opacity: 0.8;
+    }
+    
+    .btn-primary.loading .btn-text {
+        opacity: 0;
     }
     
     .btn-primary.loading::after {
@@ -298,13 +341,17 @@
         100% { transform: rotate(360deg); }
     }
     
-    .forgot-password {
+    .auth-links {
         text-align: center;
-        margin-top: 20px;
+        margin-top: 24px;
+    }
+    
+    .forgot-password {
+        margin-bottom: 20px;
     }
     
     .forgot-password a {
-        color: #667eea;
+        color: #6366f1;
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
@@ -312,62 +359,163 @@
     }
     
     .forgot-password a:hover {
-        color: #5a67d8;
+        color: #4f46e5;
         text-decoration: underline;
     }
     
     .register-link {
-        text-align: center;
-        margin-top: 30px;
         padding-top: 20px;
-        border-top: 1px solid #e5e7eb;
-        color: #6b7280;
+        border-top: 1px solid #e2e8f0;
+        color: #64748b;
         font-size: 14px;
     }
     
     .register-link a {
-        color: #667eea;
+        color: #6366f1;
         text-decoration: none;
         font-weight: 600;
-        margin-left: 5px;
+        margin-left: 4px;
+        transition: color 0.3s ease;
     }
     
     .register-link a:hover {
+        color: #4f46e5;
         text-decoration: underline;
     }
     
-    @media (max-width: 768px) {
+    .social-login {
+        margin: 30px 0;
+        position: relative;
+    }
+    
+    .social-divider {
+        text-align: center;
+        position: relative;
+        margin: 30px 0;
+    }
+    
+    .social-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e2e8f0;
+    }
+    
+    .social-divider span {
+        background: white;
+        padding: 0 20px;
+        color: #64748b;
+        font-size: 14px;
+        position: relative;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
         .auth-container {
-            padding: 10px;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            text-align: center;
         }
         
-        .auth-card {
-            margin: 10px;
+        .auth-hero {
+            order: 2;
         }
         
-        .auth-body {
-            padding: 30px 25px;
+        .auth-form-container {
+            order: 1;
+            padding: 40px 30px;
         }
+        
+        .auth-hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .auth-features {
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .auth-page {
+            padding: 20px 0;
+        }
+        
+        .auth-container {
+            padding: 0 15px;
+            gap: 30px;
+        }
+        
+        .auth-form-container {
+            padding: 30px 20px;
+            border-radius: 16px;
+        }
+        
+        .auth-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .auth-features {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    /* Integration dengan existing layout styles */
+    .auth-page .container-fluid,
+    .auth-page .container {
+        padding: 0;
+        margin: 0;
+        max-width: none;
     }
 </style>
 
-<div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <h2>{{ __('Welcome Back') }}</h2>
-            <p class="subtitle">{{ __('Sign in to your account') }}</p>
+<div class="auth-page">
+    <div class="auth-container">
+        <!-- Hero Section -->
+        <div class="auth-hero">
+            <h1>Welcome Back</h1>
+            <p>Sign in to access your account and continue your shopping journey with us.</p>
+            
+            <div class="auth-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🛒</div>
+                    <div class="feature-text">Easy Shopping</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚚</div>
+                    <div class="feature-text">Fast Delivery</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💳</div>
+                    <div class="feature-text">Secure Payment</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⭐</div>
+                    <div class="feature-text">Quality Products</div>
+                </div>
+            </div>
         </div>
         
-        <div class="auth-body">
+        <!-- Form Section -->
+        <div class="auth-form-container">
+            <div class="auth-form-header">
+                <h2>{{ __('Sign In') }}</h2>
+                <p>Enter your credentials to access your account</p>
+            </div>
+            
             <form method="POST" action="{{ route('login') }}" id="loginForm">
                 @csrf
                 
                 <div class="form-group">
                     <label for="email" class="form-label">{{ __('Email Address') }}</label>
                     <input id="email" type="email" class="form-input @error('email') is-invalid @enderror" 
-                           name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                           name="email" value="{{ old('email') }}" required autocomplete="email" autofocus 
+                           placeholder="Enter your email address">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
+                            <span>⚠️</span>
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -376,9 +524,11 @@
                 <div class="form-group">
                     <label for="password" class="form-label">{{ __('Password') }}</label>
                     <input id="password" type="password" class="form-input @error('password') is-invalid @enderror" 
-                           name="password" required autocomplete="current-password">
+                           name="password" required autocomplete="current-password" 
+                           placeholder="Enter your password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
+                            <span>⚠️</span>
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -390,25 +540,27 @@
                         <span class="checkmark"></span>
                     </label>
                     <label class="checkbox-label" for="remember">
-                        {{ __('Remember Me') }}
+                        {{ __('Keep me signed in') }}
                     </label>
                 </div>
 
                 <button type="submit" class="btn-primary" id="loginBtn">
-                    <span class="btn-text">{{ __('Sign In') }}</span>
+                    <span class="btn-text">{{ __('Sign In to Your Account') }}</span>
                 </button>
 
-                @if (Route::has('password.request'))
-                    <div class="forgot-password">
-                        <a href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
+                <div class="auth-links">
+                    @if (Route::has('password.request'))
+                        <div class="forgot-password">
+                            <a href="{{ route('password.request') }}">
+                                {{ __('Forgot your password?') }}
+                            </a>
+                        </div>
+                    @endif
+                    
+                    <div class="register-link">
+                        {{ __("Don't have an account?") }}
+                        <a href="{{ route('register') }}">{{ __('Create one now') }}</a>
                     </div>
-                @endif
-                
-                <div class="register-link">
-                    {{ __("Don't have an account?") }}
-                    <a href="{{ route('register') }}">{{ __('Sign up here') }}</a>
                 </div>
             </form>
         </div>
@@ -421,15 +573,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtn = document.getElementById('loginBtn');
     const inputs = document.querySelectorAll('.form-input');
     
-    // Add floating label effect
+    // Enhanced input interactions
     inputs.forEach(input => {
+        // Focus effects
         input.addEventListener('focus', function() {
             this.parentElement.classList.add('focused');
+            this.style.transform = 'translateY(-1px)';
         });
         
         input.addEventListener('blur', function() {
             if (this.value === '') {
                 this.parentElement.classList.remove('focused');
+            }
+            this.style.transform = 'translateY(0)';
+        });
+        
+        // Real-time validation feedback
+        input.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid')) {
+                this.classList.remove('is-invalid');
+                const feedback = this.parentElement.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+            }
+            
+            // Add valid styling for filled inputs
+            if (this.value.length > 0) {
+                this.style.borderColor = '#10b981';
+            } else {
+                this.style.borderColor = '#e2e8f0';
             }
         });
         
@@ -439,45 +612,84 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Form submission with loading state
+    // Enhanced form submission
     form.addEventListener('submit', function(e) {
+        // Add loading state
         loginBtn.classList.add('loading');
-        loginBtn.querySelector('.btn-text').style.opacity = '0';
+        loginBtn.disabled = true;
+        
+        // Add subtle form animation
+        form.style.transform = 'scale(0.98)';
+        form.style.opacity = '0.8';
         
         // Prevent double submission
-        loginBtn.disabled = true;
-    });
-    
-    // Add input validation feedback
-    inputs.forEach(input => {
-        input.addEventListener('input', function() {
-            if (this.classList.contains('is-invalid')) {
-                this.classList.remove('is-invalid');
-                const feedback = this.parentElement.querySelector('.invalid-feedback');
-                if (feedback) {
-                    feedback.style.display = 'none';
-                }
+        setTimeout(() => {
+            if (!form.submitted) {
+                form.submitted = true;
             }
-        });
+        }, 100);
     });
     
-    // Add smooth scroll to error
+    // Smooth scroll to errors
     const errorElement = document.querySelector('.invalid-feedback');
     if (errorElement) {
-        errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        errorElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center',
+            inline: 'nearest'
+        });
+        
+        // Add attention animation to error
+        errorElement.style.animation = 'pulse 2s ease-in-out 3';
     }
     
-    // Add keyboard navigation
+    // Enhanced keyboard navigation
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+            e.preventDefault();
             const currentIndex = Array.from(inputs).indexOf(e.target);
             if (currentIndex < inputs.length - 1) {
                 inputs[currentIndex + 1].focus();
             } else {
+                loginBtn.focus();
                 loginBtn.click();
             }
         }
     });
+    
+    // Add subtle animations on load
+    const authContainer = document.querySelector('.auth-form-container');
+    const authHero = document.querySelector('.auth-hero');
+    
+    // Stagger animations
+    setTimeout(() => {
+        authHero.style.opacity = '1';
+        authHero.style.transform = 'translateY(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        authContainer.style.opacity = '1';
+        authContainer.style.transform = 'translateY(0)';
+    }, 200);
+    
+    // Initial state for animations
+    authHero.style.opacity = '0';
+    authHero.style.transform = 'translateY(20px)';
+    authHero.style.transition = 'all 0.6s ease-out';
+    
+    authContainer.style.opacity = '0';
+    authContainer.style.transform = 'translateY(20px)';
+    authContainer.style.transition = 'all 0.6s ease-out';
 });
+
+// Add CSS animation keyframes
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+`;
+document.head.appendChild(style);
 </script>
 @endsection
