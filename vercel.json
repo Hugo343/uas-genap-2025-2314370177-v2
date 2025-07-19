@@ -20,7 +20,7 @@
     "APP_NAME": "Laravel",
     "APP_ENV": "production",
     "APP_KEY": "base64:OYMQSqRMoWAECx2pvbdRsZzJy0qEyTKz1xEAAE7jUCc=",
-    "APP_DEBUG": "false",
+    "APP_DEBUG": "true",
     "APP_URL": "https://uas-genap-2025-2314370177-v2.vercel.app",
 
     "LOG_CHANNEL": "stderr",
@@ -33,8 +33,8 @@
     "DB_USERNAME": "postgres.sducohsyvrfuduugegjf",
     "DB_PASSWORD": "Hugo26032003**",
 
-    "SESSION_DRIVER": "cookie",
+    "SESSION_DRIVER": "file",
     "SESSION_LIFETIME": "120",
-    "CACHE_DRIVER": "array"
+    "CACHE_DRIVER": "file"
   }
 }
