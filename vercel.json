@@ -43,7 +43,7 @@
     "DB_USERNAME": "postgres.sducohsyvrfuduugegjf",
     "DB_PASSWORD": "Hugo26032003**",
 
-    "SESSION_DRIVER": "file",
+    "SESSION_DRIVER": "cookie",
     "SESSION_LIFETIME": "120",
     "CACHE_DRIVER": "file",
     "VIEW_COMPILED_PATH": "/tmp/views",
