@@ -46,7 +46,9 @@
     "SESSION_DRIVER": "file",
     "SESSION_LIFETIME": "120",
     "CACHE_DRIVER": "file",
-    "VIEW_COMPILED_PATH": "null"
+    "VIEW_COMPILED_PATH": "null",
+    "CACHE_PATH": "/tmp/laravel_cache"
+
 
   }
 }
